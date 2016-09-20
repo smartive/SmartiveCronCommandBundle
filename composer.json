@@ -1,0 +1,23 @@
+{
+    "name": "smartive/cron-command-bundle",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "smartive AG",
+            "email": "hello@smartive.ch"
+        }
+    ],
+    "support": {
+        "source": "https://github.com/smartive/SmartiveHandlebarsBundle"
+    },
+    "autoload": {
+        "psr-4": { "Smartive\\CronCommandBundle\\": "" }
+    },
+    "require": {
+        "php": ">=5.6.0",
+        "symfony/framework-bundle": "^2.5|^3.0",
+        "hellogerard/jobby": "^3.2"
+    },
+    "prefer-stable": true
+}
