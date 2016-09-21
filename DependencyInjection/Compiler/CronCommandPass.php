@@ -54,6 +54,6 @@ class CronCommandPass implements CompilerPassInterface
             }
         }
 
-        $container->setParameter('cron.commands', $jobs);
+        $container->setParameter('smartive_cron_command.commands', $jobs);
     }
 }

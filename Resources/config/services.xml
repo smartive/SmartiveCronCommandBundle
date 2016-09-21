@@ -13,7 +13,7 @@
                  class="Smartive\CronCommandBundle\Command\CronJobCommand">
             <argument type="service" id="service_container" />
             <argument type="service" id="smartive_cron_command.service.jobby" />
-            <argument>%cron.commands%</argument>
+            <argument>%smartive_cron_command.commands%</argument>
             <tag name="console.command"/>
         </service>
     </services>
