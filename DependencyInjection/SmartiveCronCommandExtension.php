@@ -22,6 +22,6 @@ class SmartiveCronCommandExtension extends Extension
 
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-        $container->setParameter('smartive_jobby_command.jobby.options', $config['jobby_options']);
+        $container->setParameter('smartive_cron_command.jobby.options', $config['jobby_options']);
     }
 }
