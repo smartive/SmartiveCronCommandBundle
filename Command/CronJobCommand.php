@@ -73,8 +73,9 @@ class CronJobCommand extends Command
             $application = new Application($kernel);
             $application->setAutoExit(false);
 
-            $inputArgs = new ArrayInput(array(
-                'command' => $cmdName,
+            $inputArgs = new ArrayInput(array_merge(
+                [ 'command' => $cmdName ],
+                $job['command_arguments']
             ));
 
             $jobbyJobArguments = array_merge([

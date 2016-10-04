@@ -2,6 +2,7 @@
 
 namespace Smartive\CronCommandBundle\DependencyInjection\Compiler;
 
+use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -13,6 +14,7 @@ class CronCommandPass implements CompilerPassInterface
     const COMMAND_TAG = 'console.command';
     const CRON_COMMAND_TAG = 'cron.command';
     const CRON_COMMAND_ATTRIBUTE_SCHEDULE = 'schedule';
+    const CRON_COMMAND_ATTRIBUTE_ARGUMENTS = 'command_arguments';
 
     public function process(ContainerBuilder $container)
     {
@@ -47,9 +49,29 @@ class CronCommandPass implements CompilerPassInterface
                         )
                     );
                 }
+
+                $commandArguments = [];
+                if (isset($attributes[self::CRON_COMMAND_ATTRIBUTE_ARGUMENTS])) {
+                    $commandArgumentsOption = $attributes[self::CRON_COMMAND_ATTRIBUTE_ARGUMENTS];
+                    if (is_array($commandArgumentsOption)) {
+                        $commandArguments = $commandArgumentsOption;
+                    } elseif (is_string($commandArgumentsOption)) {
+                        $input = new ArgvInput();
+                        $commandArgumentsArr = explode(' ', $commandArgumentsOption);
+                        foreach ($commandArgumentsArr as $commandArgument) {
+                            $commandArgument = explode('=', $commandArgument);
+                            if (count($commandArgument) === 2) {
+                                $commandArguments[$commandArgument[0]] = $input->escapeToken($commandArgument[1]);
+                            } else {
+                                $commandArguments[] = $input->escapeToken($commandArgument[0]);
+                            }
+                        }
+                    }
+                }
                 $jobs[] = [
                     'command_service_id' => $id,
-                    'attributes' => $attributes
+                    'command_arguments' => $commandArguments,
+                    'attributes' => $attributes,
                 ];
             }
         }
