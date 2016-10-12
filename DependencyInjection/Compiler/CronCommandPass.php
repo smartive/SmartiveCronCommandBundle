@@ -2,7 +2,7 @@
 
 namespace Smartive\CronCommandBundle\DependencyInjection\Compiler;
 
-use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -56,7 +56,7 @@ class CronCommandPass implements CompilerPassInterface
                     if (is_array($commandArgumentsOption)) {
                         $commandArguments = $commandArgumentsOption;
                     } elseif (is_string($commandArgumentsOption)) {
-                        $input = new ArgvInput();
+                        $input = new ArrayInput([]);
                         $commandArgumentsArr = explode(' ', $commandArgumentsOption);
                         foreach ($commandArgumentsArr as $commandArgument) {
                             $commandArgument = explode('=', $commandArgument);
