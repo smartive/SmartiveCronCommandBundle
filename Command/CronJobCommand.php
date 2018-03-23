@@ -83,7 +83,7 @@ class CronJobCommand extends Command
                     $output = new BufferedOutput();
                     $output->writeln('Running ' . $cmdName);
                     if (0 === $application->run($inputArgs, $output)) {
-                        $output->writeln($cmdName . 'ran successfully!');
+                        $output->writeln($cmdName . ' ran successfully!');
                         echo $output->fetch();
 
                         return true;
@@ -94,7 +94,7 @@ class CronJobCommand extends Command
                 'enabled' => true,
             ], $job['attributes']);
 
-            $this->jobby->add('jobby:' . $cmdName, $jobbyJobArguments);
+            $this->jobby->add('jobby:' . $cmdName . ':' . md5(json_encode($job)), $jobbyJobArguments);
         }
         $output->writeln('Start running cron commands..');
         $this->jobby->run();
