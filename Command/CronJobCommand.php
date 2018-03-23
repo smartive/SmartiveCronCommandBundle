@@ -94,7 +94,7 @@ class CronJobCommand extends Command
                 'enabled' => true,
             ], $job['attributes']);
 
-            $this->jobby->add('jobby:' . $cmdName . ':' . md5(json_encode($job)), $jobbyJobArguments);
+            $this->jobby->add('jobby:' . $cmdName . ':' . md5(serialize($job)), $jobbyJobArguments);
         }
         $output->writeln('Start running cron commands..');
         $this->jobby->run();
