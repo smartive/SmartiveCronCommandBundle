@@ -63,7 +63,7 @@ class CronCommandPass implements CompilerPassInterface
                             if (count($commandArgument) === 2) {
                                 $commandArguments[$commandArgument[0]] = $input->escapeToken($commandArgument[1]);
                             } else {
-                                $commandArguments[] = $input->escapeToken($commandArgument[0]);
+                                $commandArguments[$commandArgument[0]] = true;
                             }
                         }
                     }
